@@ -1,0 +1,14 @@
+# Entornos virtuales de Python
+venv/
+env/
+__pycache__/
+
+# Dependencias de React/Node
+node_modules/
+
+# Variables de entorno (contraseñas, etc.)
+.env
+
+# Archivos de la base de datos local SQLite (si decidimos usarla)
+*.db
+*.sqlite3
