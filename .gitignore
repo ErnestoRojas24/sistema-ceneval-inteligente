@@ -12,3 +12,8 @@ node_modules/
 # Archivos de la base de datos local SQLite (si decidimos usarla)
 *.db
 *.sqlite3
+
+# Build de frontend
+frontend/dist/
+frontend/node_modules/
+*.pem

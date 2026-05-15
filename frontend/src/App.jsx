@@ -1,27 +1,27 @@
-import { GameProvider, useGame } from './context/GameContext'
-import PantallaInicio from './components/PantallaInicio'
-import PantallaJuego from './components/PantallaJuego'
-import PantallaResultados from './components/PantallaResultados'
+import { SessionProvider, useSession } from './context/SessionContext'
+import Welcome from './components/Welcome'
+import Quiz from './components/Quiz'
+import Results from './components/Results'
 
 function Router() {
-  const { pantalla } = useGame()
+  const { pantalla } = useSession()
 
   switch (pantalla) {
-    case 'inicio':
-      return <PantallaInicio />
-    case 'juego':
-      return <PantallaJuego />
-    case 'resultados':
-      return <PantallaResultados />
+    case 'welcome':
+      return <Welcome />
+    case 'quiz':
+      return <Quiz />
+    case 'results':
+      return <Results />
     default:
-      return <PantallaInicio />
+      return <Welcome />
   }
 }
 
 export default function App() {
   return (
-    <GameProvider>
+    <SessionProvider>
       <Router />
-    </GameProvider>
+    </SessionProvider>
   )
 }
