@@ -1,4 +1,4 @@
-const BASE_URL = 'http://127.0.0.1:8000'
+const BASE_URL = 'https://sistema-ceneval-inteligente.onrender.com'
 
 export async function iniciarExamen() {
   const res = await fetch(`${BASE_URL}/iniciar`)
