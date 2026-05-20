@@ -1,6 +1,15 @@
 import { motion } from 'framer-motion'
 import { useSession } from '../context/SessionContext'
 
+function obtenerCalificacion(puntaje) {
+  const nota = Math.min(10, Math.floor(puntaje / 300))
+  let color = 'badge-error'
+  if (nota >= 8) color = 'badge-success'
+  else if (nota >= 6) color = 'badge-info'
+  else if (nota >= 4) color = 'badge-warning'
+  return { texto: nota, color }
+}
+
 export default function Results() {
   const { resultados, puntaje, rachaMaxima, reiniciar, toggleTema, tema } = useSession()
 
@@ -76,7 +85,7 @@ export default function Results() {
         </motion.div>
 
         {}
-        {puntaje > 0 && (
+        {true && (
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -93,6 +102,27 @@ export default function Results() {
                 </p>
                 <div className="flex items-center gap-4 mt-2 text-xs text-base-content/60">
                   <span>Racha máxima: {rachaMaxima}</span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+
+        {true && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4, delay: 0.15 }}
+            className="flex justify-center"
+          >
+            <div className="card shadow-xl border w-full max-w-xs bg-base-100 border-base-300">
+              <div className="card-body items-center text-center py-6">
+                <p className="text-xs uppercase tracking-widest text-base-content/50">Calificación Final</p>
+                <p className={`text-5xl font-black ${obtenerCalificacion(puntaje).color === 'badge-success' ? 'text-success' : obtenerCalificacion(puntaje).color === 'badge-info' ? 'text-info' : obtenerCalificacion(puntaje).color === 'badge-warning' ? 'text-warning' : 'text-error'}`}>
+                  {obtenerCalificacion(puntaje).texto}
+                </p>
+                <div className="flex items-center gap-4 mt-2 text-xs text-base-content/60">
+                  <span>de 10 · {puntaje} pts obtenidos</span>
                 </div>
               </div>
             </div>
