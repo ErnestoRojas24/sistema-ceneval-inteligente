@@ -21,13 +21,13 @@ export async function obtenerPregunta(idSesion) {
   }
 }
 
-export async function validarRespuesta(idSesion, idPregunta, idOpcion) {
+export async function validarRespuesta(idSesion, idPregunta, idOpcion, puntajeActual = 0) {
   let res
   try {
     res = await fetch(`${BASE_URL}/validar`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id_sesion: idSesion, id_pregunta: idPregunta, id_opcion: idOpcion }),
+      body: JSON.stringify({ id_sesion: idSesion, id_pregunta: idPregunta, id_opcion: idOpcion, puntaje_actual: puntajeActual }),
     })
   } catch {
     throw new Error('Error de conexión con el servidor. Verifica tu conexión a internet.')

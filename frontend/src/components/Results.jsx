@@ -21,8 +21,9 @@ export default function Results() {
     )
   }
 
-  const { preguntas_respondidas, nivel_numero, nivel_texto, diagnostico_agente, es_victoria, titulo_pantalla } = resultados
+  const { preguntas_respondidas, nivel_numero, nivel_texto, diagnostico_agente, es_victoria, titulo_pantalla, puntaje: puntajeResultado } = resultados
   const esVictoria = es_victoria === true
+  const puntajeFinal = puntajeResultado ?? puntaje
 
   return (
     <div className="min-h-screen bg-base-200/50">
@@ -98,7 +99,7 @@ export default function Results() {
               <div className="card-body items-center text-center py-6">
                 <p className="text-xs uppercase tracking-widest text-base-content/50">Puntaje Final</p>
                 <p className={`text-5xl font-black ${esVictoria ? 'text-success' : 'text-primary'}`}>
-                  {puntaje}
+                  {puntajeFinal}
                 </p>
                 <div className="flex items-center gap-4 mt-2 text-xs text-base-content/60">
                   <span>Racha máxima: {rachaMaxima}</span>
@@ -118,11 +119,11 @@ export default function Results() {
             <div className="card shadow-xl border w-full max-w-xs bg-base-100 border-base-300">
               <div className="card-body items-center text-center py-6">
                 <p className="text-xs uppercase tracking-widest text-base-content/50">Calificación Final</p>
-                <p className={`text-5xl font-black ${obtenerCalificacion(puntaje).color === 'badge-success' ? 'text-success' : obtenerCalificacion(puntaje).color === 'badge-info' ? 'text-info' : obtenerCalificacion(puntaje).color === 'badge-warning' ? 'text-warning' : 'text-error'}`}>
-                  {obtenerCalificacion(puntaje).texto}
+                <p className={`text-5xl font-black ${obtenerCalificacion(puntajeFinal).color === 'badge-success' ? 'text-success' : obtenerCalificacion(puntajeFinal).color === 'badge-info' ? 'text-info' : obtenerCalificacion(puntajeFinal).color === 'badge-warning' ? 'text-warning' : 'text-error'}`}>
+                  {obtenerCalificacion(puntajeFinal).texto}
                 </p>
                 <div className="flex items-center gap-4 mt-2 text-xs text-base-content/60">
-                  <span>de 10 · {puntaje} pts obtenidos</span>
+                  <span>de 10 · {puntajeFinal} pts obtenidos</span>
                 </div>
               </div>
             </div>

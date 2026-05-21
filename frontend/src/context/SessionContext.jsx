@@ -214,12 +214,12 @@ export function SessionProvider({ children }) {
     if (!state.idSesion || !state.pregunta) return
     dispatch({ type: 'INICIAR_CARGA' })
     try {
-      const data = await validarRespuesta(state.idSesion, state.pregunta.id_pregunta, idOpcion)
+      const data = await validarRespuesta(state.idSesion, state.pregunta.id_pregunta, idOpcion, state.puntaje)
       dispatch({ type: 'FEEDBACK_EXITO', payload: data })
     } catch (e) {
       dispatch({ type: 'SET_ERROR', payload: e.message })
     }
-  }, [state.idSesion, state.pregunta])
+  }, [state.idSesion, state.pregunta, state.puntaje])
 
   const limpiarFeedback = useCallback(() => dispatch({ type: 'LIMPIAR_FEEDBACK' }), [])
   const limpiarPregunta = useCallback(() => dispatch({ type: 'LIMPIAR_PREGUNTA' }), [])

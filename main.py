@@ -28,6 +28,7 @@ class RespuestaAlumno(BaseModel):
     id_sesion: str
     id_pregunta: int
     id_opcion: int
+    puntaje_actual: int = 0
  
 @app.get("/")
 def read_root():
@@ -149,8 +150,8 @@ def validar_y_avanzar(datos: RespuestaAlumno):
             nueva_dificultad += 1
             instruccion = "Reforzando conocimiento: subiendo dificultad."
  
-        cursor.execute("UPDATE Sesiones SET id_tema_actual = %s, dificultad_actual = %s, aciertos_consecutivos = %s, total_preguntas = %s WHERE id_sesion = %s",
-                       (nuevo_tema, nueva_dificultad, nuevos_aciertos, nuevo_total, datos.id_sesion))
+        cursor.execute("UPDATE Sesiones SET id_tema_actual = %s, dificultad_actual = %s, aciertos_consecutivos = %s, total_preguntas = %s, puntaje = %s WHERE id_sesion = %s",
+                       (nuevo_tema, nueva_dificultad, nuevos_aciertos, nuevo_total, datos.puntaje_actual, datos.id_sesion))
         conn.commit()
         cursor.close()
         conn.close()
@@ -202,6 +203,9 @@ def obtener_resultados(id_sesion: str):
         cursor.close()
         conn.close()
  
+        puntaje = sesion.get('puntaje', 0)
+        calificacion = min(10, puntaje // 300)
+
         return {
             "id_sesion": id_sesion,
             "preguntas_respondidas": preguntas_respondidas,
@@ -209,7 +213,9 @@ def obtener_resultados(id_sesion: str):
             "nivel_texto": nivel_texto,
             "diagnostico_agente": diagnostico,
             "titulo_pantalla": titulo_pantalla,
-            "es_victoria": es_victoria
+            "es_victoria": es_victoria,
+            "puntaje": puntaje,
+            "calificacion": calificacion
         }
     except pymysql.Error as err:
         if conn: conn.close()
